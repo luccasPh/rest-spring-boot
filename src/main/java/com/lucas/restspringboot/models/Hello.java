@@ -1,4 +1,4 @@
-package com.lucas.restspringboot;
+package com.lucas.restspringboot.models;
 
 public class Hello {
 

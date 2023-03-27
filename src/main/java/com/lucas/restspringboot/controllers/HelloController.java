@@ -1,10 +1,12 @@
-package com.lucas.restspringboot;
+package com.lucas.restspringboot.controllers;
 
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.lucas.restspringboot.models.Hello;
 
 @RestController
 public class HelloController {
