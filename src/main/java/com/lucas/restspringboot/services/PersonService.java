@@ -21,7 +21,7 @@ public class PersonService {
     private Logger logger = Logger.getLogger(PersonService.class.getName());
 
     public Person findById(Long id) {
-        logger.info(String.format("Finding person by id: %s", id));
+        logger.info(String.format("Finding perso by id: %s", id));
 
         return listPersons.stream()
                 .filter(person -> id.equals(person.getId()))
