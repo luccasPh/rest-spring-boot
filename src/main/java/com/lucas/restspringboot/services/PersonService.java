@@ -1,49 +1,44 @@
 package com.lucas.restspringboot.services;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lucas.restspringboot.exceptions.NotFoundBusinessException;
 import com.lucas.restspringboot.models.Person;
 import com.lucas.restspringboot.models.dto.PersonDTO;
+import com.lucas.restspringboot.repositories.PersonRepository;
 
 @Service
 public class PersonService {
 
-    List<Person> listPersons = new ArrayList<>();
-
-    private final AtomicLong counter = new AtomicLong();
+    @Autowired
+    PersonRepository repository;
 
     private Logger logger = Logger.getLogger(PersonService.class.getName());
 
     public Person findById(Long id) {
-        logger.info(String.format("Finding perso by id: %s", id));
+        logger.info(String.format("Finding person by id: %s", id));
 
-        return listPersons.stream()
-                .filter(person -> id.equals(person.getId()))
-                .findFirst()
+        return repository.findById(id)
                 .orElseThrow(() -> new NotFoundBusinessException(
-                        String.format("Not found person with id %s not found", id)));
+                        String.format("Not found person with id: %s", id)));
     }
 
     public List<Person> findAll() {
         logger.info("Finding all persons");
 
-        return listPersons;
+        return repository.findAll();
     }
 
     public Person create(PersonDTO personDto) {
         logger.info(String.format("Create a person: %s", personDto.toString()));
 
         Person person = personDto.toModel();
-        person.setId(counter.incrementAndGet());
-        listPersons.add(person);
 
-        return person;
+        return repository.save(person);
     }
 
     public Person update(Long id, PersonDTO personDto) {
@@ -55,6 +50,6 @@ public class PersonService {
         person.setAddress(personDto.getAddress());
         person.setGender(personDto.getGender());
 
-        return person;
+        return repository.save(person);
     }
 }
