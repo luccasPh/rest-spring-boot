@@ -1,6 +1,7 @@
 package com.lucas.restspringboot.models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "person")
@@ -30,6 +33,10 @@ public class Person implements Serializable {
 
     @Column(nullable = false, length = 6)
     private String gender;
+
+    @Column(name = "birth_date", nullable = true)
+    @Temporal(value = TemporalType.DATE)
+    private Date birthDate;
 
     public Person() {
     }

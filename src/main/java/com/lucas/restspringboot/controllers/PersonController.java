@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lucas.restspringboot.models.Person;
-import com.lucas.restspringboot.models.dto.PersonDTO;
+import com.lucas.restspringboot.data.dto.v1.PersonDTO;
+import com.lucas.restspringboot.data.dto.v2.PersonDTOV2;
 import com.lucas.restspringboot.services.PersonService;
 
 @RestController
@@ -23,22 +23,27 @@ public class PersonController {
     private PersonService service;
 
     @GetMapping(value = "/{id}")
-    public Person findById(@PathVariable(value = "id") Long id) throws Exception {
+    public PersonDTO findById(@PathVariable(value = "id") Long id) throws Exception {
         return service.findById(id);
     }
 
     @GetMapping()
-    public List<Person> findAll() throws Exception {
+    public List<PersonDTO> findAll() throws Exception {
         return service.findAll();
     }
 
     @PostMapping
-    public Person create(@RequestBody PersonDTO person) throws Exception {
+    public PersonDTO create(@RequestBody PersonDTO person) throws Exception {
         return service.create(person);
     }
 
+    @PostMapping(value = "/v2")
+    public PersonDTOV2 createV2(@RequestBody PersonDTOV2 person) throws Exception {
+        return service.createV2(person);
+    }
+
     @PutMapping(value = "/{id}")
-    public Person update(@PathVariable(value = "id") Long id, @RequestBody PersonDTO person) throws Exception {
+    public PersonDTO update(@PathVariable(value = "id") Long id, @RequestBody PersonDTO person) throws Exception {
         return service.update(id, person);
     }
 }
