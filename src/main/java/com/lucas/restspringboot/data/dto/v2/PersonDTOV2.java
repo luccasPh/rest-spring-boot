@@ -3,8 +3,6 @@ package com.lucas.restspringboot.data.dto.v2;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class PersonDTOV2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -19,7 +17,6 @@ public class PersonDTOV2 implements Serializable {
 
     private String gender;
 
-    @DateTimeFormat
     private Date birthDate;
 
     public PersonDTOV2() {

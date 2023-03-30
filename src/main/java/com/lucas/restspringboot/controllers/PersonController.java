@@ -16,7 +16,7 @@ import com.lucas.restspringboot.data.dto.v2.PersonDTOV2;
 import com.lucas.restspringboot.services.PersonService;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person")
 public class PersonController {
 
     @Autowired

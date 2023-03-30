@@ -2,6 +2,9 @@ package com.lucas.restspringboot.data.dto.v1;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder({ "id", "firstName", "lastName", "gender", "address" })
 public class PersonDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
