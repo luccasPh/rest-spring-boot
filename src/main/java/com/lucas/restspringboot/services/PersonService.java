@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lucas.restspringboot.data.dto.v1.PersonDTO;
 import com.lucas.restspringboot.data.dto.v2.PersonDTOV2;
@@ -64,5 +65,12 @@ public class PersonService {
         person.setGender(personDto.getGender());
 
         return ObjectMapper.parseObject(repository.save(person), PersonDTO.class);
+    }
+
+    @Transactional
+    public void disablePerson(Long id) {
+        logger.info(String.format("Disabling a person id: %s ", id));
+
+        repository.disablePerson(id);
     }
 }
