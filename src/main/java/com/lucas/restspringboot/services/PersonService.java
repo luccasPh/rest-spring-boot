@@ -1,9 +1,10 @@
 package com.lucas.restspringboot.services;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,10 +32,13 @@ public class PersonService {
         return ObjectMapper.parseObject(person, PersonDTO.class);
     }
 
-    public List<PersonDTO> findAll() {
+    public Page<PersonDTO> findAll(Pageable pageable) {
         logger.info("Finding all persons");
 
-        return ObjectMapper.parseListObjects(repository.findAll(), PersonDTO.class);
+        var personPage = repository.findAll(pageable);
+        var PersonDTOPage = personPage.map(p -> ObjectMapper.parseObject(p, PersonDTO.class));
+
+        return PersonDTOPage;
     }
 
     public PersonDTO create(PersonDTO personDto) {
@@ -72,5 +76,14 @@ public class PersonService {
         logger.info(String.format("Disabling a person id: %s ", id));
 
         repository.disablePerson(id);
+    }
+
+    public Page<PersonDTO> findPersonsByName(String firstName, Pageable pageable) {
+        logger.info("Finding persons by first name");
+
+        var personPage = repository.findPersonsByName(firstName, pageable);
+        var PersonDTOPage = personPage.map(p -> ObjectMapper.parseObject(p, PersonDTO.class));
+
+        return PersonDTOPage;
     }
 }
